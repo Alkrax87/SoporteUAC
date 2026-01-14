@@ -10,6 +10,10 @@ export class AuthService {
   private http = inject(HttpClient);
 
   login(username: string, password: string) {
-    return this.http.post(`${this.apiUrl}/login`, { username, password });
+    return this.http.post(`${this.apiUrl}/auth/login`, { username, password }, { withCredentials: true });
+  }
+
+  logout() {
+    return this.http.get(`${this.apiUrl}/auth/logout`, { withCredentials: true });
   }
 }

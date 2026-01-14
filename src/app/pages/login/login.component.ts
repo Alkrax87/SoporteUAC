@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,7 @@ import { AuthService } from '../../services/auth.service';
                 </div>
               </div>
               <!-- Error -->
-              <p class="text-red-500 text-sm h-8 content-center">{{ errorMessage }}</p>
+              <p class="text-red-500 text-sm h-8 content-center">{{ errorMessage() }}</p>
               <!-- Button -->
               <button type="submit" class="bg-main hover:bg-main-hover text-white shadow-sm w-full font-semibold px-4 py-3 rounded-full cursor-pointer outline-none">
                 Ingresar
@@ -50,23 +51,28 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent {
   private authService = inject(AuthService);
   private fb = inject(FormBuilder);
+  private router = inject(Router);
 
   form = this.fb.group({
     username: ['', Validators.required],
     password: ['', Validators.required],
   });
-  errorMessage: string = '';
+  errorMessage = signal<string>('');
 
   login() {
     if (this.form.invalid) {
-      this.errorMessage = 'Por favor, complete todos los campos.';
+      this.errorMessage.set('Por favor, complete todos los campos.');
       return;
     }
 
     this.authService.login(this.form.value.username!, this.form.value.password!).subscribe({
       next: (response) => {
         console.log(response);
+        this.router.navigate(['/portal']);
       },
+      error: (error) => {
+        this.errorMessage.set(error.error.error);
+      }
     });
   }
 }
