@@ -1,7 +1,12 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { PortalComponent } from './pages/portal/portal.component';
-import { HomeComponent } from './pages/portal/home/home.component';
+import { UsuariosComponent } from './pages/portal/usuarios/usuarios.component';
+import { DashboardComponent } from './pages/portal/dashboard/dashboard.component';
+import { ReportesComponent } from './pages/portal/reportes/reportes.component';
+import { PendientesComponent } from './pages/portal/pendientes/pendientes.component';
+import { FacultadesComponent } from './pages/portal/facultades/facultades.component';
+import { AulasComponent } from './pages/portal/aulas/aulas.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -15,8 +20,13 @@ export const routes: Routes = [
     component: PortalComponent,
     title: 'Soporte UAC',
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent, title: 'Soporte UAC - Home'}
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'usuarios', component: UsuariosComponent, title: 'Soporte UAC - Usuarios'},
+      { path: 'dashboard', component: DashboardComponent, title: 'Soporte UAC - Dashboard'},
+      { path: 'reportes', component: ReportesComponent, title: 'Soporte UAC - Reportes'},
+      { path: 'pendientes', component: PendientesComponent, title: 'Soporte UAC - Pendientes'},
+      { path: 'facultades', component: FacultadesComponent, title: 'Soporte UAC - Facultades'},
+      { path: 'aulas', component: AulasComponent, title: 'Soporte UAC - Aulas'},
     ],
   },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
