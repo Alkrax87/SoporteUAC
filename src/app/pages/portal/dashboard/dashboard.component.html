@@ -1,0 +1,24 @@
+<div class="w-full flex flex-col gap-5 p-10">
+  <!-- Breadcrumb -->
+  <app-breadcrumb [path]="'Dashboard'"></app-breadcrumb>
+  <!-- Top -->
+  <div class="flex gap-5">
+    <!-- Welcome -->
+    <div class="bg-light rounded-xl w-full p-5">
+      <div class="flex justify-between">
+        <div>
+          <h1 class="font-bold text-2xl">Hola, Paco</h1>
+          <p class="text-neutral-500 text-sm">Aquí tienes un resumen del estado actual del sistema.</p>
+        </div>
+        <div class="text-neutral-700 flex items-center gap-2">
+          <span class="font-semibold text-sm">{{ today | date: 'dd MMMM, yyyy' }}</span>
+          <div class="bg-light rounded-lg p-2">
+            <fa-icon [icon]="Calendar"></fa-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- User -->
+    <app-user-logout></app-user-logout>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="w-full flex flex-col gap-5 p-10">
+  <!-- Breadcrumb -->
+  <app-breadcrumb [path]="'Reportes'"></app-breadcrumb>
+  <!-- Top -->
+  <div class="flex gap-5">
+    <!-- Welcome -->
+    <div class="bg-light rounded-xl w-full p-5">
+      <div class="flex justify-between">
+        <div>
+          <h1 class="font-bold text-2xl">Reportes</h1>
+          <p class="text-neutral-500 text-sm">Lista de reportes registrados en el sistema.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button class="bg-green-600 hover:bg-green-600/90 text-white px-6 py-2 font-semibold rounded-lg">
+            <fa-icon [icon]="Add"></fa-icon> Nuevo
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- User -->
+    <app-user-logout></app-user-logout>
+  </div>
+</div>
