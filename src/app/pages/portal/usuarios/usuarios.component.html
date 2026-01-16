@@ -11,7 +11,7 @@
           <p class="text-neutral-500 text-sm">Usuarios activos en el sistema.</p>
         </div>
         <div class="flex items-center gap-2">
-          <button class="bg-green-600 hover:bg-green-600/90 text-white px-6 py-2 font-semibold rounded-lg">
+          <button (click)="onAdd()" type="button" class="bg-green-600 hover:bg-green-600/90 text-white px-6 py-2 font-semibold rounded-lg">
             <fa-icon [icon]="Add"></fa-icon> Nuevo
           </button>
         </div>
@@ -20,4 +20,27 @@
     <!-- User -->
     <app-user-logout></app-user-logout>
   </div>
+  <!-- Table -->
+  @for (user of users(); track $index) {
+    <div>
+      <p>{{ user.name + ' ' + user.lastname + ' / ' + user.username + ' / ' + user.isAdmin + ' / ' + user._id }}</p>
+      <button type="button" (click)="onEdit(user)" class="bg-amber-500 hover:bg-amber-500/90 text-white w-fit px-2 py-1.5 rounded-full"><fa-icon [icon]="Edit"></fa-icon></button>
+      <button type="button" (click)="onDelete(user)" class="bg-red-600 hover:bg-red-600/90 text-white w-fit px-2 py-1.5 rounded-full"><fa-icon [icon]="Delete"></fa-icon></button>
+    </div>
+  }
 </div>
+
+@if (isUserModalOpen()) {
+  <app-usuarios-modal
+    [user]="selectedUser()"
+    (close)="isUserModalOpen.set(false)"
+  ></app-usuarios-modal>
+}
+
+@if (isConfirmModalOpen()) {
+  <app-confirm-modal
+    [message]="{ section: 'Usuario', element: selectedUser()?.username! }"
+    (confirm)="confirmDelete()"
+    (close)="isConfirmModalOpen.set(false)"
+  ></app-confirm-modal>
+}
