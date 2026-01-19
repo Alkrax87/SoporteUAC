@@ -9,6 +9,10 @@ export class AuthService {
   private apiUrl = Environments.apiUrl;
   private http = inject(HttpClient);
 
+  checkAuth() {
+    return this.http.get(`${this.apiUrl}/auth/check-auth`, { withCredentials: true });
+  }
+
   login(username: string, password: string) {
     return this.http.post(`${this.apiUrl}/auth/login`, { username, password }, { withCredentials: true });
   }

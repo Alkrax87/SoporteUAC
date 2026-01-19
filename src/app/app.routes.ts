@@ -7,17 +7,21 @@ import { ReportesComponent } from './pages/portal/reportes/reportes.component';
 import { PendientesComponent } from './pages/portal/pendientes/pendientes.component';
 import { FacultadesComponent } from './pages/portal/facultades/facultades.component';
 import { AulasComponent } from './pages/portal/aulas/aulas.component';
+import { authGuard } from './guards/auth.guard';
+import { noAuthGuard } from './guards/no-auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [noAuthGuard],
     title: 'Login',
   },
   {
     path: 'portal',
     component: PortalComponent,
+    canActivate: [authGuard],
     title: 'Soporte UAC',
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
