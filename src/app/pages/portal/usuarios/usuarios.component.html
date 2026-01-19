@@ -20,14 +20,35 @@
     <!-- User -->
     <app-user-logout></app-user-logout>
   </div>
-  <!-- Table -->
-  @for (user of users(); track $index) {
-    <div>
-      <p>{{ user.name + ' ' + user.lastname + ' / ' + user.username + ' / ' + user.isAdmin + ' / ' + user._id }}</p>
-      <button type="button" (click)="onEdit(user)" class="bg-amber-500 hover:bg-amber-500/90 text-white w-fit px-2 py-1.5 rounded-full"><fa-icon [icon]="Edit"></fa-icon></button>
-      <button type="button" (click)="onDelete(user)" class="bg-red-600 hover:bg-red-600/90 text-white w-fit px-2 py-1.5 rounded-full"><fa-icon [icon]="Delete"></fa-icon></button>
-    </div>
-  }
+  <!-- Counter -->
+  <div class="text-neutral-500 text-sm -mb-3">
+    Mostrando {{ users().length  }} usuarios
+  </div>
+  <!-- Cards -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
+    @for (user of users(); track $index) {
+      <div class="bg-light rounded-xl p-5 flex gap-2 items-center">
+        <div>
+          <div class="bg-[#F1F1F1] flex items-center justify-center text-xl w-12 h-12 rounded-full">
+            @if (user.isAdmin) {
+              <fa-icon [icon]="Admin"></fa-icon>
+            } @else {
+              <fa-icon [icon]="User"></fa-icon>
+            }
+          </div>
+        </div>
+        <div class="w-full truncate">
+          <p class="font-semibold">{{ user.name + ' ' + user.lastname}}</p>
+          <p class="text-neutral-600 -mt-1">{{user.username }}</p>
+        </div>
+        <div class="flex gap-1">
+          <button type="button" (click)="onResetPassword(user)" class="bg-indigo-800 hover:bg-indigo-800/90 text-white w-fit px-2 py-1.5 rounded-full"><fa-icon [icon]="Key"></fa-icon></button>
+          <button type="button" (click)="onEdit(user)" class="bg-amber-500 hover:bg-amber-500/90 text-white w-fit px-2 py-1.5 rounded-full"><fa-icon [icon]="Edit"></fa-icon></button>
+          <button type="button" (click)="onDelete(user)" class="bg-red-600 hover:bg-red-600/90 text-white w-fit px-2 py-1.5 rounded-full"><fa-icon [icon]="Delete"></fa-icon></button>
+        </div>
+      </div>
+    }
+  </div>
 </div>
 
 @if (isUserModalOpen()) {
@@ -35,6 +56,13 @@
     [user]="selectedUser()"
     (close)="isUserModalOpen.set(false)"
   ></app-usuarios-modal>
+}
+
+@if (isResetPasswordModalOpen()) {
+  <app-usuarios-reset-password
+    [user]="selectedUser()!"
+    (close)="isResetPasswordModalOpen.set(false)"
+  ></app-usuarios-reset-password>
 }
 
 @if (isConfirmModalOpen()) {

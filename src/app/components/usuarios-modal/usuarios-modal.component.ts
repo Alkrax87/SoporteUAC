@@ -54,6 +54,14 @@ import { UsersService } from '../../services/users.service';
                 </label>
               </div>
             }
+            <!-- isAdmin -->
+            <div class="relative">
+              <label class="cursor-pointer relative flex items-center justify-between h-12 w-full rounded-full border bg-white px-5 transition-colors">
+                <input type="checkbox" formControlName="isAdmin" class="peer sr-only">
+                <span class="text-neutral-600 font-semibold">Administrador</span>
+                <div class="relative h-6 w-11 rounded-full bg-neutral-200 transition-colors after:absolute after:top-0.5 after:start-[2px] after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow-sm after:transition-all after:content-[''] peer-checked:bg-main peer-checked:after:translate-x-full"></div>
+              </label>
+            </div>
           </div>
           <hr class="-mx-5 my-4">
           <div class="flex justify-end gap-2">
@@ -87,6 +95,7 @@ export class UsuariosModalComponent {
     lastname: ['', Validators.required],
     username: ['', Validators.required],
     password: ['', [Validators.required, Validators.minLength(8)]],
+    isAdmin: [false, Validators.required],
   });
 
   User = faUser;
