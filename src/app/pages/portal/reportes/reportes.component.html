@@ -11,7 +11,7 @@
           <p class="text-neutral-500 text-sm">Lista de reportes registrados en el sistema.</p>
         </div>
         <div class="flex items-center gap-2">
-          <button class="bg-green-600 hover:bg-green-600/90 text-white px-6 py-2 font-semibold rounded-lg">
+          <button (click)="onAdd()" type="button" class="bg-green-600 hover:bg-green-600/90 text-white px-6 py-2 font-semibold rounded-lg">
             <fa-icon [icon]="Add"></fa-icon> Nuevo
           </button>
         </div>
@@ -20,4 +20,23 @@
     <!-- User -->
     <app-user-logout></app-user-logout>
   </div>
+  <!-- Table -->
+  <app-table [tableConstructor]="tableConstructor" [data]="reportes()" [facultades]="facultades()"
+    (onEdit)="onEdit($event)" (onDelete)="onDelete($event)"
+  ></app-table>
 </div>
+
+@if (isReporteModalOpen()) {
+  <app-reportes-modal
+    [reporte]="selectedReporte()"
+    (close)="isReporteModalOpen.set(false)"
+  ></app-reportes-modal>
+}
+
+@if (isConfirmModalOpen()) {
+  <app-confirm-modal
+    [message]="{ section: 'Reporte', element: selectedReporte()?.report! }"
+    (confirm)="confirmDelete()"
+    (close)="isConfirmModalOpen.set(false)"
+  ></app-confirm-modal>
+}
