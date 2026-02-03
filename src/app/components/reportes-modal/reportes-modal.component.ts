@@ -53,7 +53,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
                   <option value="''" disabled>Selecciona Tipo</option>
                   <option value="Hardware">Hardware</option>
                   <option value="Software">Software</option>
+                  <option value="Impresora">Impresora</option>
                   <option value="Red">Red</option>
+                  <option value="Anexo">Anexo</option>
                   <option value="Accesorios">Accesorios</option>
                   <option value="Otros">Otros</option>
                 </select>

@@ -40,10 +40,10 @@ export class ReportesComponent {
   tableConstructor = [
     { key: 'report', label: 'Reporte' },
     { key: 'description', label: 'Descripción' },
-    { key: 'type', label: 'Tipo' },
+    { key: 'type', label: 'Tipo', isType: true },
     { key: 'school', label: 'Facultad', search: true},
-    { key: 'office', label: 'Oficina' },
-    { key: 'patrimonialCode', label: 'Código Patrimonial' },
+    { key: 'office', label: 'Oficina / Aula' },
+    { key: 'patrimonialCode', label: 'Cod. Patrimonial' },
     { key: 'date', label: 'Fecha', isDate: true },
   ];
 
