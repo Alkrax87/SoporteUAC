@@ -21,4 +21,63 @@
     <!-- User -->
     <app-user-logout></app-user-logout>
   </div>
+  <!-- Summary -->
+  <h3 class="font-semibold text-2xl">Actividad</h3>
+  <!-- Cards -->
+  @if (summary().length > 0) {
+    <div class="grid grid-cols-4 gap-5 w-full">
+      <!-- Today -->
+      <div class="bg-gradient-to-r from-[#4EC2FA] to-[#87d7ff] text-slate-50 p-5 rounded-3xl">
+        <div class="bg-white text-[#4EC2FA] px-2 py-2 text-2xl w-fit rounded-2xl mb-3">
+          <fa-icon [icon]="Clipboard"></fa-icon>
+        </div>
+        <p class="font-bold text-3xl">{{ summary()[0].value }}</p>
+        <div class="flex justify-between">
+          <p class="text-sm">{{ summary()[0].label }}</p>
+          <p class="font-semibold w-fit px-3 rounded-full bg-[#4EC2FA] border-[#4EC2FA]">
+            {{ summary()[0].difference > 0 ? '+' + summary()[0].difference : summary()[0].difference }}%
+          </p>
+        </div>
+      </div>
+      <!-- Weekly -->
+      <div class="bg-gradient-to-r from-[#49D7AD] to-[#84dec3] text-slate-50 p-5 rounded-3xl">
+        <div class="bg-white text-[#49D7AD] px-2 py-2 text-2xl w-fit rounded-2xl mb-3">
+          <fa-icon [icon]="Clipboard"></fa-icon>
+        </div>
+        <p class="font-bold text-3xl">{{ summary()[1].value }}</p>
+        <div class="flex justify-between">
+          <p class="text-sm">{{ summary()[1].label }}</p>
+          <p class="font-semibold w-fit px-3 rounded-full bg-[#49D7AD] border-[#49D7AD]">
+            {{ summary()[1].difference > 0 ? '+' + summary()[1].difference : summary()[1].difference }}%
+          </p>
+        </div>
+      </div>
+      <!-- Monthly -->
+      <div class="bg-gradient-to-r from-[#6F4AFF] to-[#957bff] text-slate-50 p-5 rounded-3xl">
+        <div class="bg-white text-[#6F4AFF] px-2 py-2 text-2xl w-fit rounded-2xl mb-3">
+          <fa-icon [icon]="Clipboard"></fa-icon>
+        </div>
+        <p class="font-bold text-3xl">{{ summary()[2].value }}</p>
+        <div class="flex justify-between">
+          <p class="text-sm">{{ summary()[2].label }}</p>
+          <p class="font-semibold w-fit px-3 rounded-full bg-[#6F4AFF] border-[#6F4AFF]">
+            {{ summary()[2].difference > 0 ? '+' + summary()[2].difference : summary()[2].difference }}%
+          </p>
+        </div>
+      </div>
+      <!-- Annual -->
+      <div class="bg-gradient-to-r from-[#427FFF] to-[#6e99f5] text-slate-50 p-5 rounded-3xl">
+        <div class="bg-white text-[#427FFF] px-2 py-2 text-2xl w-fit rounded-2xl mb-3">
+          <fa-icon [icon]="Clipboard"></fa-icon>
+        </div>
+        <p class="font-bold text-3xl">{{ summary()[3].value }}</p>
+        <div class="flex justify-between">
+          <p class="text-sm">{{ summary()[3].label }}</p>
+          <p class="font-semibold w-fit px-3 rounded-full bg-[#427FFF] border-[#427FFF]">
+            {{ summary()[3].difference > 0 ? '+' + summary()[3].difference : summary()[3].difference }}%
+          </p>
+        </div>
+      </div>
+    </div>
+  }
 </div>
