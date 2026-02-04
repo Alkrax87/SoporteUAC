@@ -5,6 +5,7 @@ export interface Reporte {
   type: string;
   school: string;
   office: string;
+  time: string;
   patrimonialCode: string;
   date: Date;
 }

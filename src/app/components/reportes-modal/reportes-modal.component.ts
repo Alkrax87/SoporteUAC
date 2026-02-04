@@ -86,6 +86,23 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
                 <span class="bg-white text-neutral-400 peer-focus:text-main cursor-text flex items-center -translate-y-6 absolute inset-y-0 start-3 px-2 text-xs font-semibold transition-transform peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-6">Oficina</span>
               </label>
             </div>
+            <!-- Time -->
+            <div>
+              <label for="time" class="relative">
+                <select id="time" formControlName="time" placeholder="" class="bg-white text-neutral-700 border focus:border-main focus:text-main h-12 cursor-pointer px-5 py-2 peer w-full rounded-full shadow-sm duration-100 outline-none">
+                  <option value="''" disabled>Selecciona Tiempo</option>
+                  <option value="10 min">10 min</option>
+                  <option value="15 min">15 min</option>
+                  <option value="20 min">20 min</option>
+                  <option value="30 min">30 min</option>
+                  <option value="45 min">45 min</option>
+                  <option value="1 hora">1 hora</option>
+                  <option value="2 horas">2 horas</option>
+                  <option value="3 horas">3 horas</option>
+                </select>
+                <span class="bg-white text-neutral-400 peer-focus:text-main cursor-text flex items-center -translate-y-6 absolute inset-y-0 start-3 px-2 text-xs font-semibold transition-transform peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-6">Tiempo</span>
+              </label>
+            </div>
             <!-- Código Patrimonial-->
             <div>
               <label for="patrimonialCode" class="relative">
@@ -136,6 +153,7 @@ export class ReportesModalComponent {
     description: ['', Validators.required],
     school: ['', Validators.required],
     office: ['', Validators.required],
+    time: ['', Validators.required],
     patrimonialCode: [''],
   });
 

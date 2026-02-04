@@ -43,6 +43,7 @@ export class ReportesComponent {
     { key: 'type', label: 'Tipo', isType: true },
     { key: 'school', label: 'Facultad', search: true},
     { key: 'office', label: 'Oficina / Aula' },
+    { key: 'time', label: 'Tiempo', isTime: true },
     { key: 'patrimonialCode', label: 'Cod. Patrimonial' },
     { key: 'date', label: 'Fecha', isDate: true },
   ];

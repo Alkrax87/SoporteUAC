@@ -1,7 +1,7 @@
 import { DatePipe, NgClass } from '@angular/common';
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faChevronDown, faChevronLeft, faChevronRight, faChevronUp, faComputer, faDesktop, faEdit, faNetworkWired, faPhone, faPrint, faSearch, faToolbox, faTrash, faWrench } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronLeft, faChevronRight, faChevronUp, faClock, faComputer, faDesktop, faEdit, faNetworkWired, faPhone, faPrint, faSearch, faToolbox, faTrash, faWrench } from '@fortawesome/free-solid-svg-icons';
 import { Facultad } from '../../interfaces/facultad';
 
 @Component({
@@ -103,6 +103,12 @@ import { Facultad } from '../../interfaces/facultad';
                       <td class="px-3 truncate text-sm">
                         <div class="font-semibold text-sm">{{ row[header.key] | date: 'dd MMMM, y' }}</div>
                         <div class="text-xs text-neutral-500">{{ row[header.key] | date: 'HH:mm' }}</div>
+                      </td>
+                    } @else if (header.isTime) {
+                      <td class="px-3 text-center text-sm">
+                        <div class="bg-[#343434] text-white rounded-full flex justify-center truncate px-4 gap-1">
+                          <fa-icon [icon]="Clock"></fa-icon> {{ row[header.key] }}
+                        </div>
                       </td>
                     } @else if (header.isType) {
                       @switch (row[header.key]) {
@@ -208,7 +214,7 @@ import { Facultad } from '../../interfaces/facultad';
   styles: ``,
 })
 export class TableComponent {
-  @Input() tableConstructor: { key: string, label: string, search?: boolean, isDate?: boolean, isType?: boolean}[] = [];
+  @Input() tableConstructor: { key: string, label: string, search?: boolean, isDate?: boolean, isType?: boolean, isTime?: boolean }[] = [];
   @Input() data: any[] = [];
   @Input() facultades: Facultad[] = [];
   @Output() onShow = new EventEmitter<any>();
@@ -231,6 +237,7 @@ export class TableComponent {
   Phone = faPhone;
   Accesories = faToolbox;
   Other = faWrench;
+  Clock = faClock;
   Edit = faEdit;
   Delete = faTrash;
 
