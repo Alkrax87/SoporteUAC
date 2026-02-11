@@ -30,6 +30,8 @@
     "@angular/router": "^20.3.0",
     "@fortawesome/angular-fontawesome": "^3.0.0",
     "@fortawesome/free-solid-svg-icons": "^7.0.0",
+    "ag-charts-angular": "^13.0.1",
+    "ag-charts-community": "^13.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
