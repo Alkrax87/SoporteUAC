@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Environments } from '../environment/environments';
-import { Summary } from '../interfaces/summary';
+import { DashboardData } from '../interfaces/dashboard';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -11,18 +11,16 @@ export class DashboardService {
   private backendUrl = Environments.apiUrl;
   private http = inject(HttpClient);
 
-  private summarySubject = new BehaviorSubject<Summary[]>([]);
-  summary$ = this.summarySubject.asObservable();
+  private dashboardSubject = new BehaviorSubject<DashboardData | null>(null);
+  dashboard$ = this.dashboardSubject.asObservable();
 
   constructor() {
-    this.getSummary();
+    this.getDataForDashboard();
   }
 
-  getSummary() {
-    this.http.get<Summary[]>(this.backendUrl + '/summary').subscribe({
-      next: (data) => {
-        this.summarySubject.next(data);
-      }
+  getDataForDashboard() {
+    this.http.get<DashboardData>(this.backendUrl + '/dashboard').subscribe({
+      next: (data) => this.dashboardSubject.next(data),
     });
   }
 }
