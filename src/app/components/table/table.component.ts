@@ -1,7 +1,7 @@
 import { DatePipe, NgClass } from '@angular/common';
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faChevronDown, faChevronLeft, faChevronRight, faChevronUp, faClock, faComputer, faDesktop, faEdit, faNetworkWired, faPhone, faPrint, faSearch, faToolbox, faTrash, faWrench } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronLeft, faChevronRight, faChevronUp, faClipboardCheck, faClock, faComputer, faDatabase, faDesktop, faEdit, faNetworkWired, faPhone, faPrint, faSearch, faToolbox, faTrash, faWrench } from '@fortawesome/free-solid-svg-icons';
 import { Facultad } from '../../interfaces/facultad';
 
 @Component({
@@ -29,10 +29,11 @@ import { Facultad } from '../../interfaces/facultad';
           (change)="onPageSizeChange($event)"
           class="bg-white ring-transparent ring-[3px] hover:ring-main/50 text-main text-end text-sm px-3 py-1 rounded-full outline-none cursor-pointer shadow-md"
         >
-          <option class="text-start" value="20">20</option>
-          <option class="text-start" value="30">30</option>
           <option class="text-start" value="50">50</option>
           <option class="text-start" value="100">100</option>
+          <option class="text-start" value="200">200</option>
+          <option class="text-start" value="500">500</option>
+          <option class="text-start" value="1000">1000</option>
         </select>
       </div>
     </div>
@@ -85,98 +86,111 @@ import { Facultad } from '../../interfaces/facultad';
             <th>Opciones</th>
           </tr>
         </thead>
-        <tbody>
-          @for (row of paginatedData; track $index) {
-            <tr class="h-10 hover:bg-neutral-100">
-              @for (header of tableConstructor; track $index) {
-                @switch ($index) {
-                  @case (0) {
-                    <td class="px-3  text-sm">{{ row[header.key] }}</td>
-                  }
-                  @case (1) {
-                    <td class="px-3 text-sm">{{ row[header.key] }}</td>
-                  }
-                  @default {
-                    @if (header.search) {
-                      <td class="text-center text-sm px-3">{{ getFacultadName(row[header.key]) }}</td>
-                    } @else if (header.isDate) {
-                      <td class="px-3 truncate text-sm">
-                        <div class="font-semibold text-sm">{{ row[header.key] | date: 'dd MMMM, y' }}</div>
-                        <div class="text-xs text-neutral-500">{{ row[header.key] | date: 'HH:mm' }}</div>
-                      </td>
-                    } @else if (header.isTime) {
-                      <td class="px-3 text-center text-sm">
-                        <div class="bg-[#343434] text-white rounded-full flex justify-center truncate px-4 gap-1">
-                          <fa-icon [icon]="Clock"></fa-icon> {{ row[header.key] }}
-                        </div>
-                      </td>
-                    } @else if (header.isType) {
-                      @switch (row[header.key]) {
-                        @case ('Hardware') {
-                          <td class="px-3 text-center text-sm">
-                            <div class="bg-[#2696AA] text-white rounded-full flex justify-center px-4 gap-1">
-                              <fa-icon [icon]="Hardware"></fa-icon> {{ row[header.key] }}
-                            </div>
-                          </td>
+        <tbody class="bg-white">
+          @if (paginatedData.length > 0) {
+            @for (row of paginatedData; track $index) {
+              <tr class="h-10 hover:bg-neutral-100">
+                @for (header of tableConstructor; track $index) {
+                  @switch ($index) {
+                    @case (0) {
+                      <td class="px-3  text-sm">{{ row[header.key] }}</td>
+                    }
+                    @case (1) {
+                      <td class="px-3 text-sm">{{ row[header.key] }}</td>
+                    }
+                    @default {
+                      @if (header.search) {
+                        <td class="text-center text-sm px-3">{{ getFacultadName(row[header.key]) }}</td>
+                      } @else if (header.isDate) {
+                        <td class="px-3 truncate text-sm">
+                          <div class="font-semibold text-sm">{{ row[header.key] | date: 'dd MMMM, y' }}</div>
+                          <div class="text-xs text-neutral-500">{{ row[header.key] | date: 'HH:mm' }}</div>
+                        </td>
+                      } @else if (header.isTime) {
+                        <td class="px-3 text-center text-sm">
+                          <div class="bg-[#343434] text-white rounded-full flex justify-center truncate px-4 gap-1">
+                            <fa-icon [icon]="Clock"></fa-icon> {{ row[header.key] }}
+                          </div>
+                        </td>
+                      } @else if (header.isType) {
+                        @switch (row[header.key]) {
+                          @case ('Hardware') {
+                            <td class="px-3 text-center text-sm">
+                              <div class="bg-[#2696AA] text-white rounded-full flex justify-center px-4 gap-1">
+                                <fa-icon [icon]="Hardware"></fa-icon> {{ row[header.key] }}
+                              </div>
+                            </td>
+                          }
+                          @case ('Software') {
+                            <td class="px-3 text-center text-sm">
+                              <div class="bg-[#03CCA0] text-white rounded-full flex justify-center px-4 gap-1">
+                                <fa-icon [icon]="Software"></fa-icon> {{ row[header.key] }}
+                              </div>
+                            </td>
+                          }
+                          @case ('Impresora') {
+                            <td class="px-3 text-center text-sm">
+                              <div class="bg-[#16476A] text-white rounded-full flex justify-center px-4 gap-1">
+                                <fa-icon [icon]="Printer"></fa-icon> {{ row[header.key] }}
+                              </div>
+                            </td>
+                          }
+                          @case ('Red') {
+                            <td class="px-3 text-center text-sm">
+                              <div class="bg-[#FF0F40] text-white rounded-full flex justify-center px-4 gap-1">
+                                <fa-icon [icon]="Network"></fa-icon> {{ row[header.key] }}
+                              </div>
+                            </td>
+                          }
+                          @case ('Anexo') {
+                            <td class="px-3 text-center text-sm">
+                              <div class="bg-[#FF6400] text-white rounded-full flex justify-center px-4 gap-1">
+                                <fa-icon [icon]="Phone"></fa-icon> {{ row[header.key] }}
+                              </div>
+                            </td>
+                          }
+                          @case ('Accesorios') {
+                            <td class="px-3 text-center text-sm">
+                              <div class="bg-[#FFB51E] text-white rounded-full flex justify-center px-4 gap-1">
+                                <fa-icon [icon]="Accesories"></fa-icon> {{ row[header.key] }}
+                              </div>
+                            </td>
+                          }
+                          @default {
+                            <td class="px-3 text-center text-sm">
+                              <div class="bg-[#777C6D] text-white rounded-full flex justify-center px-4 gap-1">
+                                <fa-icon [icon]="Other"></fa-icon> {{ row[header.key] }}
+                              </div>
+                            </td>
+                          }
                         }
-                        @case ('Software') {
-                          <td class="px-3 text-center text-sm">
-                            <div class="bg-[#03CCA0] text-white rounded-full flex justify-center px-4 gap-1">
-                              <fa-icon [icon]="Software"></fa-icon> {{ row[header.key] }}
-                            </div>
-                          </td>
-                        }
-                        @case ('Impresora') {
-                          <td class="px-3 text-center text-sm">
-                            <div class="bg-[#16476A] text-white rounded-full flex justify-center px-4 gap-1">
-                              <fa-icon [icon]="Printer"></fa-icon> {{ row[header.key] }}
-                            </div>
-                          </td>
-                        }
-                        @case ('Red') {
-                          <td class="px-3 text-center text-sm">
-                            <div class="bg-[#FF0F40] text-white rounded-full flex justify-center px-4 gap-1">
-                              <fa-icon [icon]="Network"></fa-icon> {{ row[header.key] }}
-                            </div>
-                          </td>
-                        }
-                        @case ('Anexo') {
-                          <td class="px-3 text-center text-sm">
-                            <div class="bg-[#FF6400] text-white rounded-full flex justify-center px-4 gap-1">
-                              <fa-icon [icon]="Phone"></fa-icon> {{ row[header.key] }}
-                            </div>
-                          </td>
-                        }
-                        @case ('Accesorios') {
-                          <td class="px-3 text-center text-sm">
-                            <div class="bg-[#FFB51E] text-white rounded-full flex justify-center px-4 gap-1">
-                              <fa-icon [icon]="Accesories"></fa-icon> {{ row[header.key] }}
-                            </div>
-                          </td>
-                        }
-                        @default {
-                          <td class="px-3 text-center text-sm">
-                            <div class="bg-[#777C6D] text-white rounded-full flex justify-center px-4 gap-1">
-                              <fa-icon [icon]="Other"></fa-icon> {{ row[header.key] }}
-                            </div>
-                          </td>
-                        }
+                      } @else {
+                        <td class="px-3 text-center text-sm">{{ row[header.key] }}</td>
                       }
-                    } @else {
-                      <td class="px-3 text-center text-sm">{{ row[header.key] }}</td>
                     }
                   }
                 }
-              }
-              <td class="px-5">
-                <div class="flex items-center justify-center gap-4">
-                  <button (click)="onEdit.emit(row)" class="text-amber-500" title="Editar">
-                    <fa-icon [icon]="Edit"></fa-icon>
-                  </button>
-                  <button (click)="onDelete.emit(row)"  class="text-red-600"title="Eliminar">
-                    <fa-icon [icon]="Delete"></fa-icon>
-                  </button>
-                </div>
+                <td class="px-5">
+                  <div class="flex items-center justify-center gap-4">
+                    <button (click)="onEdit.emit(row)" class="text-amber-500" title="Editar">
+                      <fa-icon [icon]="Edit"></fa-icon>
+                    </button>
+                    <button (click)="onDelete.emit(row)"  class="text-red-600"title="Eliminar">
+                      <fa-icon [icon]="Delete"></fa-icon>
+                    </button>
+                    @if (send) {
+                      <button (click)="onSend.emit(row)"  class="text-green-600"title="Finalizar">
+                        <fa-icon [icon]="ClipBoard"></fa-icon>
+                      </button>
+                    }
+                  </div>
+                </td>
+              </tr>
+            }
+          } @else {
+            <tr>
+              <td [colSpan]="tableConstructor.length + 1" class="h-10 text-center text-neutral-500 text-sm">
+                <fa-icon [icon]="Database"></fa-icon> Sin datos
               </td>
             </tr>
           }
@@ -216,10 +230,12 @@ import { Facultad } from '../../interfaces/facultad';
 export class TableComponent {
   @Input() tableConstructor: { key: string, label: string, search?: boolean, isDate?: boolean, isType?: boolean, isTime?: boolean }[] = [];
   @Input() data: any[] = [];
+  @Input() send: boolean = false;
   @Input() facultades: Facultad[] = [];
   @Output() onShow = new EventEmitter<any>();
   @Output() onEdit = new EventEmitter<any>();
   @Output() onDelete = new EventEmitter<any>();
+  @Output() onSend = new EventEmitter<any>();
 
   searchTerm: string = '';
   sortColumn: string = '';
@@ -240,9 +256,11 @@ export class TableComponent {
   Clock = faClock;
   Edit = faEdit;
   Delete = faTrash;
+  ClipBoard = faClipboardCheck;
+  Database = faDatabase;
 
   currentPage = 1;
-  pageSize = 20;
+  pageSize = 50;
   totalPages = 1;
   startRecord = 0;
   endRecord = 0;
