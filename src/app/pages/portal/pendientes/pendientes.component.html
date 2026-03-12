@@ -22,7 +22,7 @@
   </div>
   <!-- Table -->
   <app-table [tableConstructor]="tableConstructor" [data]="pendientes()" [facultades]="facultades()"
-    (onEdit)="onEdit($event)" (onDelete)="onDelete($event)"
+    (onEdit)="onEdit($event)" (onDelete)="onDelete($event)" [send]="true"
   ></app-table>
 </div>
 
