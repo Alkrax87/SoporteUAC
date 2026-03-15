@@ -12,10 +12,11 @@ import { Pendiente } from '../../../interfaces/pendiente';
 import { Facultad } from '../../../interfaces/facultad';
 import { PendientesModalComponent } from "../../../components/pendientes-modal/pendientes-modal.component";
 import { ConfirmModalComponent } from "../../../components/confirm-modal/confirm-modal.component";
+import { PendientesRedirectModalComponent } from "../../../components/pendientes-redirect-modal/pendientes-redirect-modal.component";
 
 @Component({
   selector: 'app-pendientes',
-  imports: [BreadcrumbComponent, FontAwesomeModule, UserLogoutComponent, TableComponent, PendientesModalComponent, ConfirmModalComponent],
+  imports: [BreadcrumbComponent, FontAwesomeModule, UserLogoutComponent, TableComponent, PendientesModalComponent, ConfirmModalComponent, PendientesRedirectModalComponent],
   templateUrl: './pendientes.component.html',
   styles: ``,
 })
@@ -49,6 +50,7 @@ export class PendientesComponent {
 
   isPendienteModalOpen = signal(false);
   isConfirmModalOpen = signal(false);
+  isPendienteRedirectModalOpen = signal(false);
 
   Add = faPlus;
 
@@ -70,5 +72,10 @@ export class PendientesComponent {
   confirmDelete() {
     this.pendientesService.deletePendiente(this.selectedPendiente()?._id!);
     this.isConfirmModalOpen.set(false);
+  }
+
+  onSend(pendiente: Pendiente) {
+    this.selectedPendiente.set(pendiente);
+    this.isPendienteRedirectModalOpen.set(true);
   }
 }

@@ -22,7 +22,7 @@
   </div>
   <!-- Table -->
   <app-table [tableConstructor]="tableConstructor" [data]="pendientes()" [facultades]="facultades()"
-    (onEdit)="onEdit($event)" (onDelete)="onDelete($event)" [send]="true"
+    (onEdit)="onEdit($event)" (onDelete)="onDelete($event)" (onSend)="onSend($event)" [send]="true"
   ></app-table>
 </div>
 
@@ -39,4 +39,11 @@
     (confirm)="confirmDelete()"
     (close)="isConfirmModalOpen.set(false)"
   ></app-confirm-modal>
+}
+
+@if (isPendienteRedirectModalOpen()) {
+  <app-pendientes-redirect-modal
+    [pendiente]="selectedPendiente()!"
+    (close)="isPendienteRedirectModalOpen.set(false)"
+  ></app-pendientes-redirect-modal>
 }
