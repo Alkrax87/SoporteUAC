@@ -103,11 +103,18 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
                 <span class="bg-white text-neutral-400 peer-focus:text-main cursor-text flex items-center -translate-y-6 absolute inset-y-0 start-3 px-2 text-xs font-semibold transition-transform peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-6">Tiempo</span>
               </label>
             </div>
-            <!-- Código Patrimonial-->
+            <!-- Patrimonial Code -->
             <div>
               <label for="patrimonialCode" class="relative">
                 <input id="patrimonialCode" type="text" formControlName="patrimonialCode" placeholder="" autocomplete="false" class="bg-white text-neutral-700 border focus:border-main focus:text-main h-12 cursor-text px-5 py-2 peer w-full rounded-full shadow-sm duration-100 outline-none">
                 <span class="bg-white text-neutral-400 peer-focus:text-main cursor-text flex items-center -translate-y-6 absolute inset-y-0 start-3 px-2 text-xs font-semibold transition-transform peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-6">Código Patrimonial</span>
+              </label>
+            </div>
+            <!-- Date -->
+            <div>
+              <label for="date" class="relative">
+                <input id="date" formControlName="date" type="datetime-local" placeholder="" autocomplete="false" class="bg-white text-neutral-700 border focus:border-crimson focus:text-crimson h-12 cursor-text px-5 py-2 peer w-full rounded-full shadow-sm duration-100 outline-none">
+                <span class="bg-white text-neutral-400 peer-focus:text-crimson cursor-text flex items-center -translate-y-6 absolute inset-y-0 start-3 px-2 text-xs font-semibold transition-transform peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-6">Fecha</span>
               </label>
             </div>
             <hr class="-mx-5 my-4">
@@ -155,6 +162,7 @@ export class ReportesModalComponent {
     office: ['', Validators.required],
     time: ['', Validators.required],
     patrimonialCode: [''],
+    date: ['', Validators.required],
   });
 
   ngOnInit() {
@@ -162,7 +170,11 @@ export class ReportesModalComponent {
       const facultad = this.facultades().find(f => f._id === this.reporte!.school);
       this.offices.set(facultad?.offices ?? []);
 
-      this.form.patchValue(this.reporte);
+      const date = this.reporte.date ? this.formatDatetimeLocal(this.reporte.date) : '';
+
+      this.form.patchValue({ ...this.reporte, date });
+    } else {
+      this.form.get('date')?.setValue(this.formatDatetimeLocal(new Date()));
     }
 
     this.form.get('school')!.valueChanges.subscribe((facultadId) => {
@@ -177,13 +189,20 @@ export class ReportesModalComponent {
   Add = faPlus;
   Save = faFloppyDisk;
 
+  private formatDatetimeLocal(dateInput: Date | string): string {
+    const d = new Date(dateInput);
+    d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+    return d.toISOString().slice(0, 16);
+  }
+
   save() {
     if (this.form.invalid) {
       return;
     }
 
     const reporte = this.form.value as Reporte;
-    reporte.date = new Date();
+    console.log(reporte);
+    
 
     if (reporte._id) {
       this.reportesService.editReporte(reporte);

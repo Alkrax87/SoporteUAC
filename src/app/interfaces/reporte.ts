@@ -7,5 +7,5 @@ export interface Reporte {
   office: string;
   time: string;
   patrimonialCode: string;
-  date: Date;
+  date: Date | null;
 }
