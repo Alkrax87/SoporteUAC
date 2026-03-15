@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from "../../components/sidebar/sidebar.component";
 import { NgClass } from '@angular/common';
-import { faChartArea, faClipboardList, faGraduationCap, faHourglassHalf, faSchool, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faChartArea, faClipboardList, faHourglassHalf, faSchool, faUsers } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-portal',
@@ -40,7 +40,6 @@ export class PortalComponent {
       sectionName: 'Gestión',
       routes: [
         { route: 'facultades', name: 'Facultades', icon: faSchool },
-        { route: 'aulas', name: 'Aulas', icon: faGraduationCap },
       ]
     },
   ];
