@@ -4,9 +4,9 @@ import { BreadcrumbComponent } from "../../../components/breadcrumb/breadcrumb.c
 import { UserLogoutComponent } from "../../../components/user-logout/user-logout.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons/faCalendar';
-import { faClipboardList } from '@fortawesome/free-solid-svg-icons';
+import { faBuilding, faCalendarWeek, faChartBar, faClipboardList } from '@fortawesome/free-solid-svg-icons';
 import { DashboardService } from '../../../services/dashboard.service';
-import { ReportsByFacultad, Summary } from '../../../interfaces/dashboard';
+import { Summary } from '../../../interfaces/dashboard';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AgCharts } from 'ag-charts-angular';
 import { AgChartOptions } from 'ag-charts-community';
@@ -48,11 +48,11 @@ export class DashboardComponent {
               strokeWidth: 2,
               fillOpacity: 0.4,
               interpolation: { type: "smooth" },
-              fill: "#8CCDE3",
-              stroke: "#3DA0BF",
+              fill: "#20cef7",
+              stroke: "#00CEFF",
               marker: {
-                fill: "#8CCDE3",
-                stroke: "#3DA0BF",
+                fill: "#20cef7",
+                stroke: "#00CEFF",
                 size: 10,
                 strokeWidth: 2,
               },
@@ -102,4 +102,7 @@ export class DashboardComponent {
 
   Calendar = faCalendar;
   Clipboard = faClipboardList;
+  Week = faCalendarWeek;
+  School = faBuilding;
+  Types = faChartBar;
 }

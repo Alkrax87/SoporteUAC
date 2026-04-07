@@ -3,14 +3,14 @@
   <app-breadcrumb [path]="'Dashboard'"></app-breadcrumb>
   <!-- Top -->
   <div class="flex gap-5">
-    <!-- Welcome -->
-    <div class="bg-light rounded-xl w-full p-5">
+    <!-- Bage -->
+    <div class="bg-light rounded-xl w-full px-5 py-4">
       <div class="flex justify-between">
         <div>
-          <h1 class="font-bold text-2xl">Bienvenido al sistema de Soporte UAC</h1>
-          <p class="text-neutral-500 text-sm">Aquí tienes un resumen semanal del sistema.</p>
+          <h1 class="font-bold text-2xl">Dashboard</h1>
+          <p class="text-neutral-500 text-sm">Aquí tienes información general del sistema.</p>
         </div>
-        <div class="text-neutral-700 flex items-center gap-2">
+        <div class="text-neutral-700 flex items-center">
           <span class="font-semibold text-sm">{{ today | date: 'dd MMMM, yyyy' }}</span>
           <div class="bg-light rounded-lg p-2">
             <fa-icon [icon]="Calendar"></fa-icon>
@@ -21,71 +21,73 @@
     <!-- User -->
     <app-user-logout></app-user-logout>
   </div>
-  <!-- Summary -->
-  <h3 class="font-semibold text-2xl">Actividad</h3>
-  <!-- Cards -->
-  @if (summary().length > 0) {
-    <div class="grid grid-cols-4 gap-5 w-full">
-      <!-- Today -->
-      <div class="bg-gradient-to-r from-[#4EC2FA] to-[#87d7ff] text-slate-50 p-5 rounded-3xl">
-        <div class="bg-white text-[#4EC2FA] px-2 py-2 text-2xl w-fit rounded-2xl mb-3">
-          <fa-icon [icon]="Clipboard"></fa-icon>
+  <!-- Overview -->
+  <div class="flex flex-col gap-2">
+    <h3 class="font-semibold text-2xl">Actividad</h3>
+    <!-- Cards -->
+    @if (summary().length > 0) {
+      <div class="grid grid-cols-4 gap-5 w-full">
+        <!-- Today -->
+        <div class="bg-gradient-to-r from-[#4EC2FA] to-[#87d7ff] text-slate-50 p-5 rounded-3xl shadow-sm">
+          <div class="bg-white text-[#4EC2FA] px-2 py-2 text-2xl w-fit rounded-2xl mb-3">
+            <fa-icon [icon]="Clipboard"></fa-icon>
+          </div>
+          <p class="font-bold text-3xl">{{ summary()[0].value }}</p>
+          <div class="flex justify-between">
+            <p class="text-sm">{{ summary()[0].label }}</p>
+            <p class="font-semibold min-w-14 text-center px-2 rounded-full bg-[#4EC2FA] border-[#4EC2FA]">
+              {{ summary()[0].difference > 0 ? '+' + summary()[0].difference : summary()[0].difference }}%
+            </p>
+          </div>
         </div>
-        <p class="font-bold text-3xl">{{ summary()[0].value }}</p>
-        <div class="flex justify-between">
-          <p class="text-sm">{{ summary()[0].label }}</p>
-          <p class="font-semibold w-fit px-3 rounded-full bg-[#4EC2FA] border-[#4EC2FA]">
-            {{ summary()[0].difference > 0 ? '+' + summary()[0].difference : summary()[0].difference }}%
-          </p>
+        <!-- Weekly -->
+        <div class="bg-gradient-to-r from-[#49D7AD] to-[#84dec3] text-slate-50 p-5 rounded-3xl shadow-sm">
+          <div class="bg-white text-[#49D7AD] px-2 py-2 text-2xl w-fit rounded-2xl mb-3">
+            <fa-icon [icon]="Clipboard"></fa-icon>
+          </div>
+          <p class="font-bold text-3xl">{{ summary()[1].value }}</p>
+          <div class="flex justify-between">
+            <p class="text-sm">{{ summary()[1].label }}</p>
+            <p class="font-semibold min-w-14 text-center px-2 rounded-full bg-[#49D7AD] border-[#49D7AD]">
+              {{ summary()[1].difference > 0 ? '+' + summary()[1].difference : summary()[1].difference }}%
+            </p>
+          </div>
+        </div>
+        <!-- Monthly -->
+        <div class="bg-gradient-to-r from-[#6F4AFF] to-[#957bff] text-slate-50 p-5 rounded-3xl shadow-sm">
+          <div class="bg-white text-[#6F4AFF] px-2 py-2 text-2xl w-fit rounded-2xl mb-3">
+            <fa-icon [icon]="Clipboard"></fa-icon>
+          </div>
+          <p class="font-bold text-3xl">{{ summary()[2].value }}</p>
+          <div class="flex justify-between">
+            <p class="text-sm">{{ summary()[2].label }}</p>
+            <p class="font-semibold min-w-14 text-center px-2 rounded-full bg-[#6F4AFF] border-[#6F4AFF]">
+              {{ summary()[2].difference > 0 ? '+' + summary()[2].difference : summary()[2].difference }}%
+            </p>
+          </div>
+        </div>
+        <!-- Annual -->
+        <div class="bg-gradient-to-r from-[#427FFF] to-[#6e99f5] text-slate-50 p-5 rounded-3xl shadow-sm">
+          <div class="bg-white text-[#427FFF] px-2 py-2 text-2xl w-fit rounded-2xl mb-3">
+            <fa-icon [icon]="Clipboard"></fa-icon>
+          </div>
+          <p class="font-bold text-3xl">{{ summary()[3].value }}</p>
+          <div class="flex justify-between">
+            <p class="text-sm">{{ summary()[3].label }}</p>
+            <p class="font-semibold min-w-14 text-center px-2 rounded-full bg-[#427FFF] border-[#427FFF]">
+              {{ summary()[3].difference > 0 ? '+' + summary()[3].difference : summary()[3].difference }}%
+            </p>
+          </div>
         </div>
       </div>
-      <!-- Weekly -->
-      <div class="bg-gradient-to-r from-[#49D7AD] to-[#84dec3] text-slate-50 p-5 rounded-3xl">
-        <div class="bg-white text-[#49D7AD] px-2 py-2 text-2xl w-fit rounded-2xl mb-3">
-          <fa-icon [icon]="Clipboard"></fa-icon>
-        </div>
-        <p class="font-bold text-3xl">{{ summary()[1].value }}</p>
-        <div class="flex justify-between">
-          <p class="text-sm">{{ summary()[1].label }}</p>
-          <p class="font-semibold w-fit px-3 rounded-full bg-[#49D7AD] border-[#49D7AD]">
-            {{ summary()[1].difference > 0 ? '+' + summary()[1].difference : summary()[1].difference }}%
-          </p>
-        </div>
-      </div>
-      <!-- Monthly -->
-      <div class="bg-gradient-to-r from-[#6F4AFF] to-[#957bff] text-slate-50 p-5 rounded-3xl">
-        <div class="bg-white text-[#6F4AFF] px-2 py-2 text-2xl w-fit rounded-2xl mb-3">
-          <fa-icon [icon]="Clipboard"></fa-icon>
-        </div>
-        <p class="font-bold text-3xl">{{ summary()[2].value }}</p>
-        <div class="flex justify-between">
-          <p class="text-sm">{{ summary()[2].label }}</p>
-          <p class="font-semibold w-fit px-3 rounded-full bg-[#6F4AFF] border-[#6F4AFF]">
-            {{ summary()[2].difference > 0 ? '+' + summary()[2].difference : summary()[2].difference }}%
-          </p>
-        </div>
-      </div>
-      <!-- Annual -->
-      <div class="bg-gradient-to-r from-[#427FFF] to-[#6e99f5] text-slate-50 p-5 rounded-3xl">
-        <div class="bg-white text-[#427FFF] px-2 py-2 text-2xl w-fit rounded-2xl mb-3">
-          <fa-icon [icon]="Clipboard"></fa-icon>
-        </div>
-        <p class="font-bold text-3xl">{{ summary()[3].value }}</p>
-        <div class="flex justify-between">
-          <p class="text-sm">{{ summary()[3].label }}</p>
-          <p class="font-semibold w-fit px-3 rounded-full bg-[#427FFF] border-[#427FFF]">
-            {{ summary()[3].difference > 0 ? '+' + summary()[3].difference : summary()[3].difference }}%
-          </p>
-        </div>
-      </div>
-    </div>
-  }
+    }
+  </div>
   <!-- Charts -->
   <div class="grid grid-cols-5 gap-5">
     <!-- 1 -->
     <div class="col-span-3">
-      <h3 class="font-semibold text-xl mb-2">Reporte Semanal</h3>
       <div class="bg-white rounded-3xl h-fit p-5">
+        <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="Week"></fa-icon> Última Semana</h3>
         @if (chartReporteSemanal) {
           <ag-charts class="flex h-[440px]" [options]="chartReporteSemanal"> </ag-charts>
         }
@@ -93,8 +95,8 @@
     </div>
     <!-- 2 -->
     <div class="col-span-2">
-      <h3 class="font-semibold text-xl mb-2">Facultades</h3>
       <div class="bg-white rounded-3xl h-fit p-5">
+        <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="School"></fa-icon> Facultades</h3>
         @if (chartFacultades) {
           <ag-charts class="flex h-[440px]" [options]="chartFacultades"> </ag-charts>
         }
@@ -102,8 +104,8 @@
     </div>
     <!-- 3 -->
     <div class="col-span-5">
-      <h3 class="font-semibold text-xl mb-2">Tipo de Reportes</h3>
-      <div class="bg-white rounded-3xl h-96 p-5">
+      <div class="bg-white rounded-3xl p-5">
+        <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="Types"></fa-icon> Tipo de Reportes</h3>
         @if (chartType) {
           <ag-charts class="flex h-full" [options]="chartType"> </ag-charts>
         }
