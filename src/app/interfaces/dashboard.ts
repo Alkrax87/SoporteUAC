@@ -14,8 +14,14 @@ export interface ReportByWeekday {
   reported: number;
 }
 
+export interface ReportsByType {
+  quarter: string;
+  value: number;
+}
+
 export interface DashboardData {
   summary: Summary[];
   reportsByWeekday: ReportByWeekday[];
   reportsByFacultad: ReportsByFacultad[];
+  reportsByType: ReportsByType[];
 }

@@ -82,6 +82,17 @@
       </div>
     }
   </div>
+  <!-- Reports -->
+  <div class="flex justify-between">
+    <!-- 1 -->
+    <div class="font-semibold text-2xl">Reportes</div>
+    <!-- 2 -->
+    <div class="bg-white py-1 px-1 rounded-full flex">
+      <button type="button" class="w-20 font-semibold text-sm py-1 duration-100" (click)="setActiveTab('weekly')" [ngClass]="{ 'bg-main text-white rounded-full': weekly, 'text-neutral-500': !weekly }">Semanal</button>
+      <button type="button" class="w-20 font-semibold text-sm py-1 duration-100" (click)="setActiveTab('monthly')" [ngClass]="{ 'bg-main text-white rounded-full': monthly, 'text-neutral-500': !monthly }">Mensual</button>
+      <button type="button" class="w-20 font-semibold text-sm py-1 duration-100" (click)="setActiveTab('annual')" [ngClass]="{ 'bg-main text-white rounded-full': annual, 'text-neutral-500': !annual }">Anual</button>
+    </div>
+  </div>
   <!-- Charts -->
   <div class="grid grid-cols-5 gap-5">
     <!-- 1 -->

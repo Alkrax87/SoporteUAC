@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 import { BreadcrumbComponent } from "../../../components/breadcrumb/breadcrumb.component";
 import { UserLogoutComponent } from "../../../components/user-logout/user-logout.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -17,7 +17,7 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 
 @Component({
   selector: 'app-dashboard',
-  imports: [BreadcrumbComponent, FontAwesomeModule, DatePipe, UserLogoutComponent, AgCharts],
+  imports: [BreadcrumbComponent, FontAwesomeModule, DatePipe, UserLogoutComponent, AgCharts, NgClass],
   templateUrl: './dashboard.component.html',
   styles: ``,
 })
@@ -29,6 +29,16 @@ export class DashboardComponent {
   chartReporteSemanal: AgChartOptions | null = null;
   chartFacultades: AgChartOptions | null = null;
   chartType: AgChartOptions | null = null;
+
+  weekly: boolean = true;
+  monthly: boolean = false;
+  annual: boolean = false;
+
+  setActiveTab(tab: String) {
+    this.weekly = tab === 'weekly';
+    this.monthly = tab === 'monthly';
+    this.annual = tab === 'annual';
+  }
 
   constructor() {
     this.dashboardService.getDataForDashboard();
@@ -67,37 +77,25 @@ export class DashboardComponent {
               angleKey: "total",
               calloutLabelKey: "facultad",
               sectorLabelKey: "total",
-              fills: ["#168BF5", "#FF7556", "#F2A541", "#29AB91", "#405189", "#7653FF"],
+              fills: ["#3852B4", "#FFC81E", "#FF6D1F", "#48A111", "#2FA4D7", "#DC0000"],
             },
           ],
+        },
+        this.chartType = {
+          data: data?.reportsByType,
+          series: [
+            {
+              type: "bar",
+              direction: "horizontal",
+              xKey: "quarter",
+              yKey: "value",
+              fill: "#00CEFF",
+              label: { enabled: true },
+            }
+          ]
         }
       }
     });
-    this.chartType = {
-      data: this.getData3(),
-      series: [
-        {
-          type: "bar",
-          direction: "horizontal",
-          xKey: "quarter",
-          yKey: "value",
-          fill: "#D5509C",
-          label: { enabled: true  },
-        }
-      ],
-    }
-  }
-
-  getData3() {
-    return [
-      { quarter: "Hardware", value: 10 },
-      { quarter: "Software", value: 13 },
-      { quarter: "Impresora", value: 5 },
-      { quarter: "Red", value: 2 },
-      { quarter: "Anexo", value: 1 },
-      { quarter: "Accesorios", value: 6 },
-      { quarter: "Otros", value: 9 },
-    ];
   }
 
   Calendar = faCalendar;
