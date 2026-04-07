@@ -11,9 +11,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AgCharts } from 'ag-charts-angular';
 import { AgChartOptions } from 'ag-charts-community';
 import { ModuleRegistry, AllCommunityModule } from 'ag-charts-community';
-
 ModuleRegistry.registerModules([AllCommunityModule]);
-
 
 @Component({
   selector: 'app-dashboard',
@@ -26,9 +24,15 @@ export class DashboardComponent {
   today = new Date();
 
   summary = signal<Summary[]>([]);
-  chartReporteSemanal: AgChartOptions | null = null;
-  chartFacultades: AgChartOptions | null = null;
-  chartType: AgChartOptions | null = null;
+  chartByTimeWeekly: AgChartOptions | null = null;
+  chartByTimeMonthly: AgChartOptions | null = null;
+  chartByTimeAnnual: AgChartOptions | null = null;
+  chartByFacultadWeekly: AgChartOptions | null = null;
+  chartByFacultadMonthly: AgChartOptions | null = null;
+  chartByFacultadAnnual: AgChartOptions | null = null;
+  chartByTypeWeekly: AgChartOptions | null = null;
+  chartByTypeMonthly: AgChartOptions | null = null;
+  chartByTypeAnnual: AgChartOptions | null = null;
 
   weekly: boolean = true;
   monthly: boolean = false;
@@ -45,15 +49,15 @@ export class DashboardComponent {
     this.dashboardService.dashboard$.pipe(takeUntilDestroyed()).subscribe({
       next: (data) => {
         this.summary.set(data?.summary || []);
-        this.chartReporteSemanal = {
+        this.chartByTimeWeekly = {
           subtitle: {
             text: "Casos reportados en la última semana",
           },
-          data: data?.reportsByWeekday,
+          data: data?.reportsByTime.weekDays,
           series: [
             {
               type: "area",
-              xKey: "day",
+              xKey: "key",
               yKey: "reported",
               strokeWidth: 2,
               fillOpacity: 0.4,
@@ -68,21 +72,119 @@ export class DashboardComponent {
               },
             },
           ],
-        };
-        this.chartFacultades = {
-          data: data?.reportsByFacultad,
+        }
+        this.chartByTimeMonthly = {
+          subtitle: {
+            text: "Casos reportados en la última semana",
+          },
+          data: data?.reportsByTime.monthWeeks,
+          series: [
+            {
+              type: "area",
+              xKey: "key",
+              yKey: "reported",
+              strokeWidth: 2,
+              fillOpacity: 0.4,
+              interpolation: { type: "smooth" },
+              fill: "#20cef7",
+              stroke: "#00CEFF",
+              marker: {
+                fill: "#20cef7",
+                stroke: "#00CEFF",
+                size: 10,
+                strokeWidth: 2,
+              },
+            },
+          ],
+        }
+        this.chartByTimeAnnual = {
+          subtitle: {
+            text: "Casos reportados en el último año",
+          },
+          data: data?.reportsByTime.yearMonths,
+          series: [
+            {
+              type: "area",
+              xKey: "key",
+              yKey: "reported",
+              strokeWidth: 2,
+              fillOpacity: 0.4,
+              interpolation: { type: "smooth" },
+              fill: "#20cef7",
+              stroke: "#00CEFF",
+              marker: {
+                fill: "#20cef7",
+                stroke: "#00CEFF",
+                size: 10,
+                strokeWidth: 2,
+              },
+            },
+          ],
+        }
+        this.chartByFacultadWeekly = {
+          data: data?.reportsByFacultad.weekDays,
           series: [
             {
               type: "pie",
-              angleKey: "total",
+              angleKey: "value",
               calloutLabelKey: "facultad",
-              sectorLabelKey: "total",
+              sectorLabelKey: "value",
               fills: ["#3852B4", "#FFC81E", "#FF6D1F", "#48A111", "#2FA4D7", "#DC0000"],
             },
           ],
-        },
-        this.chartType = {
-          data: data?.reportsByType,
+        }
+        this.chartByFacultadMonthly = {
+          data: data?.reportsByFacultad.monthWeeks,
+          series: [
+            {
+              type: "pie",
+              angleKey: "value",
+              calloutLabelKey: "facultad",
+              sectorLabelKey: "value",
+              fills: ["#3852B4", "#FFC81E", "#FF6D1F", "#48A111", "#2FA4D7", "#DC0000"],
+            },
+          ],
+        }
+        this.chartByFacultadAnnual = {
+          data: data?.reportsByFacultad.yearMonths,
+          series: [
+            {
+              type: "pie",
+              angleKey: "value",
+              calloutLabelKey: "facultad",
+              sectorLabelKey: "value",
+              fills: ["#3852B4", "#FFC81E", "#FF6D1F", "#48A111", "#2FA4D7", "#DC0000"],
+            },
+          ],
+        }
+        this.chartByTypeWeekly = {
+          data: data?.reportsByType.weekDays,
+          series: [
+            {
+              type: "bar",
+              direction: "horizontal",
+              xKey: "quarter",
+              yKey: "value",
+              fill: "#00CEFF",
+              label: { enabled: true },
+            }
+          ]
+        }
+        this.chartByTypeMonthly = {
+          data: data?.reportsByType.monthWeeks,
+          series: [
+            {
+              type: "bar",
+              direction: "horizontal",
+              xKey: "quarter",
+              yKey: "value",
+              fill: "#00CEFF",
+              label: { enabled: true },
+            }
+          ]
+        }
+        this.chartByTypeAnnual = {
+          data: data?.reportsByType.yearMonths,
           series: [
             {
               type: "bar",

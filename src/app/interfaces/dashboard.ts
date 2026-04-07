@@ -3,25 +3,33 @@ export interface Summary {
   value: number;
   difference: number;
 }
-
-export interface ReportsByFacultad {
-  facultad: string;
-  total: number;
-}
-
-export interface ReportByWeekday {
-  day: string;
+export interface ReportByTime {
+  key: string;
   reported: number;
 }
-
+export interface ReportsByFacultad {
+  facultad: string;
+  value: number;
+}
 export interface ReportsByType {
   quarter: string;
   value: number;
 }
-
 export interface DashboardData {
   summary: Summary[];
-  reportsByWeekday: ReportByWeekday[];
-  reportsByFacultad: ReportsByFacultad[];
-  reportsByType: ReportsByType[];
+  reportsByTime: {
+    weekDays: ReportByTime[];
+    monthWeeks: ReportByTime[];
+    yearMonths: ReportByTime[];
+  },
+  reportsByFacultad: {
+    weekDays: ReportsByFacultad[];
+    monthWeeks: ReportsByFacultad[];
+    yearMonths: ReportsByFacultad[];
+  },
+  reportsByType: {
+    weekDays: ReportsByType[];
+    monthWeeks: ReportsByType[];
+    yearMonths: ReportsByType[];
+  },
 }

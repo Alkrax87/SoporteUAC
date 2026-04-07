@@ -95,32 +95,92 @@
   </div>
   <!-- Charts -->
   <div class="grid grid-cols-5 gap-5">
-    <!-- 1 -->
-    <div class="col-span-3">
-      <div class="bg-white rounded-3xl h-fit p-5">
-        <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="Week"></fa-icon> Última Semana</h3>
-        @if (chartReporteSemanal) {
-          <ag-charts class="flex h-[440px]" [options]="chartReporteSemanal"> </ag-charts>
-        }
+    @if (weekly) {
+      <!-- 1 -->
+      <div class="col-span-3">
+        <div class="bg-white rounded-3xl h-fit p-5">
+          <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="Week"></fa-icon> Esta Semana</h3>
+          @if (chartByTimeWeekly) {
+            <ag-charts class="flex h-[440px]" [options]="chartByTimeWeekly"> </ag-charts>
+          }
+        </div>
       </div>
-    </div>
-    <!-- 2 -->
-    <div class="col-span-2">
-      <div class="bg-white rounded-3xl h-fit p-5">
-        <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="School"></fa-icon> Facultades</h3>
-        @if (chartFacultades) {
-          <ag-charts class="flex h-[440px]" [options]="chartFacultades"> </ag-charts>
-        }
+      <!-- 2 -->
+      <div class="col-span-2">
+        <div class="bg-white rounded-3xl h-fit p-5">
+          <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="School"></fa-icon> Facultades</h3>
+          @if (chartByFacultadWeekly) {
+            <ag-charts class="flex h-[440px]" [options]="chartByFacultadWeekly"> </ag-charts>
+          }
+        </div>
       </div>
-    </div>
-    <!-- 3 -->
-    <div class="col-span-5">
-      <div class="bg-white rounded-3xl p-5">
-        <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="Types"></fa-icon> Tipo de Reportes</h3>
-        @if (chartType) {
-          <ag-charts class="flex h-full" [options]="chartType"> </ag-charts>
-        }
+      <!-- 3 -->
+      <div class="col-span-5">
+        <div class="bg-white rounded-3xl p-5">
+          <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="Types"></fa-icon> Tipo de Reportes</h3>
+          @if (chartByTypeWeekly) {
+            <ag-charts class="flex h-full" [options]="chartByTypeWeekly"> </ag-charts>
+          }
+        </div>
       </div>
-    </div>
+    }
+    @if (monthly) {
+      <!-- 1 -->
+      <div class="col-span-3">
+        <div class="bg-white rounded-3xl h-fit p-5">
+          <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="Week"></fa-icon> Este Mes</h3>
+          @if (chartByTimeMonthly) {
+            <ag-charts class="flex h-[440px]" [options]="chartByTimeMonthly"> </ag-charts>
+          }
+        </div>
+      </div>
+      <!-- 2 -->
+      <div class="col-span-2">
+        <div class="bg-white rounded-3xl h-fit p-5">
+          <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="School"></fa-icon> Facultades</h3>
+          @if (chartByFacultadMonthly) {
+            <ag-charts class="flex h-[440px]" [options]="chartByFacultadMonthly"> </ag-charts>
+          }
+        </div>
+      </div>
+      <!-- 3 -->
+      <div class="col-span-5">
+        <div class="bg-white rounded-3xl p-5">
+          <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="Types"></fa-icon> Tipo de Reportes</h3>
+          @if (chartByTypeMonthly) {
+            <ag-charts class="flex h-full" [options]="chartByTypeMonthly"> </ag-charts>
+          }
+        </div>
+      </div>
+    }
+    @if (annual) {
+      <!-- 1 -->
+      <div class="col-span-3">
+        <div class="bg-white rounded-3xl h-fit p-5">
+          <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="Week"></fa-icon> Este Año</h3>
+          @if (chartByTimeAnnual) {
+            <ag-charts class="flex h-[440px]" [options]="chartByTimeAnnual"> </ag-charts>
+          }
+        </div>
+      </div>
+      <!-- 2 -->
+      <div class="col-span-2">
+        <div class="bg-white rounded-3xl h-fit p-5">
+          <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="School"></fa-icon> Facultades</h3>
+          @if (chartByFacultadAnnual) {
+            <ag-charts class="flex h-[440px]" [options]="chartByFacultadAnnual"> </ag-charts>
+          }
+        </div>
+      </div>
+      <!-- 3 -->
+      <div class="col-span-5">
+        <div class="bg-white rounded-3xl p-5">
+          <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="Types"></fa-icon> Tipo de Reportes</h3>
+          @if (chartByTypeAnnual) {
+            <ag-charts class="flex h-full" [options]="chartByTypeAnnual"> </ag-charts>
+          }
+        </div>
+      </div>
+    }
   </div>
 </div>
