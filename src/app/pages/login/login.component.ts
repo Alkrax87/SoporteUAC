@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { User } from '../../interfaces/user';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
     <div class="w-full h-dvh">
       <div class="relative h-screen select-none">
         <!-- Background -->
-        <img loading="lazy" class="absolute inset-0 w-full h-full object-cover z-0" src="./assets/UAC.jpg" alt="Image-Background" />
+        <img loading="lazy" class="absolute inset-0 w-full h-full object-cover z-0" src="./assets/uac-background.jpg" alt="Image-Background" />
         <div class="absolute bg-black inset-0 bg-opacity-50 z-10"></div>
         <!-- Login -->
         <div class="absolute inset-0 z-20 flex items-center justify-center">
@@ -67,10 +68,11 @@ export class LoginComponent {
 
     this.authService.login(this.form.value.username!, this.form.value.password!).subscribe({
       next: (response) => {
-        console.log(response);
+        this.authService.userSubject.next(response.user as User);
         this.router.navigate(['/portal']);
       },
       error: (error) => {
+        this.authService.userSubject.next(null);
         this.errorMessage.set(error.error.error);
       }
     });
