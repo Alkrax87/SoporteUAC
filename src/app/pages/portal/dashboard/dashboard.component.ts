@@ -3,24 +3,24 @@ import { DatePipe, NgClass } from '@angular/common';
 import { BreadcrumbComponent } from "../../../components/breadcrumb/breadcrumb.component";
 import { UserLogoutComponent } from "../../../components/user-logout/user-logout.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCalendar } from '@fortawesome/free-solid-svg-icons/faCalendar';
-import { faBuilding, faCalendarWeek, faChartBar, faClipboardList } from '@fortawesome/free-solid-svg-icons';
+import { faBuilding, faCalendarWeek, faChartBar, faClipboardList, faFileExcel, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { DashboardService } from '../../../services/dashboard.service';
 import { Summary } from '../../../interfaces/dashboard';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AgCharts } from 'ag-charts-angular';
 import { AgChartOptions } from 'ag-charts-community';
 import { ModuleRegistry, AllCommunityModule } from 'ag-charts-community';
+import { ExportReportesComponent } from "../../../components/export-reportes/export-reportes.component";
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 @Component({
   selector: 'app-dashboard',
-  imports: [BreadcrumbComponent, FontAwesomeModule, DatePipe, UserLogoutComponent, AgCharts, NgClass],
+  imports: [BreadcrumbComponent, FontAwesomeModule, DatePipe, UserLogoutComponent, AgCharts, NgClass, ExportReportesComponent],
   templateUrl: './dashboard.component.html',
   styles: ``,
 })
 export class DashboardComponent {
-  private dashboardService =  inject(DashboardService);
+  private dashboardService = inject(DashboardService);
   today = new Date();
 
   summary = signal<Summary[]>([]);
@@ -43,6 +43,8 @@ export class DashboardComponent {
     this.monthly = tab === 'monthly';
     this.annual = tab === 'annual';
   }
+
+  isExportModalOpen = signal(false);
 
   constructor() {
     this.dashboardService.getDataForDashboard();
@@ -205,4 +207,5 @@ export class DashboardComponent {
   Week = faCalendarWeek;
   School = faBuilding;
   Types = faChartBar;
+  Excel = faFileExcel
 }
