@@ -24,6 +24,7 @@ export class PortalComponent {
   routes = [
     {
       sectionName: 'Admin',
+      requireAdmin: true,
       routes: [
         { route: 'usuarios', name: 'Usuarios', icon: faUsers },
       ]

@@ -5,10 +5,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBuilding, faEye, faPenToSquare, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { Facultad } from '../../../interfaces/facultad';
 import { FacultadesService } from '../../../services/facultades.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FacultadesModalComponent } from "../../../components/facultades-modal/facultades-modal.component";
 import { ConfirmModalComponent } from "../../../components/confirm-modal/confirm-modal.component";
 import { FacultadesShowComponent } from "../../../components/facultades-show/facultades-show.component";
+import { AuthService } from '../../../services/auth.service';
+import { combineLatest } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-facultades',
@@ -18,16 +20,22 @@ import { FacultadesShowComponent } from "../../../components/facultades-show/fac
 })
 export class FacultadesComponent {
   private facultadesService = inject(FacultadesService);
+  private authServiceIsAdmin = inject(AuthService).userLogged$;
 
   constructor() {
     this.facultadesService.getFacultades();
-    this.facultadesService.facultades$.pipe(takeUntilDestroyed()).subscribe({
-      next: (data) => this.facultades.set(data),
+    combineLatest([this.facultadesService.facultades$, this.authServiceIsAdmin]).pipe(takeUntilDestroyed()).subscribe({
+      next: ([facultades, user]) => {
+        this.facultades.set(facultades);
+        if (user) { this.isAdmin.set(user.isAdmin) }
+      }
     });
+
   }
 
   facultades = signal<Facultad[]>([]);
   selectedFacultad = signal<Facultad | null>(null);
+  isAdmin = signal(false);
 
   isFacultadModalOpen = signal(false);
   isShowModalOpen = signal(false);

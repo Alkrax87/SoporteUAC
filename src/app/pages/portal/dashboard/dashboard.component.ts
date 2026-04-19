@@ -11,6 +11,7 @@ import { AgCharts } from 'ag-charts-angular';
 import { AgChartOptions } from 'ag-charts-community';
 import { ModuleRegistry, AllCommunityModule } from 'ag-charts-community';
 import { ExportReportesComponent } from "../../../components/export-reportes/export-reportes.component";
+import { AuthService } from '../../../services/auth.service';
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 @Component({
@@ -21,6 +22,9 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 })
 export class DashboardComponent {
   private dashboardService = inject(DashboardService);
+  private authServiceIsAdmin = inject(AuthService).userLogged$;
+  isAdmin = signal(false);
+
   today = new Date();
 
   summary = signal<Summary[]>([]);
@@ -48,6 +52,11 @@ export class DashboardComponent {
 
   constructor() {
     this.dashboardService.getDataForDashboard();
+    this.authServiceIsAdmin.pipe(takeUntilDestroyed()).subscribe({
+      next: (user) => {
+        if (user) { this.isAdmin.set(user.isAdmin) }
+      }
+    });
     this.dashboardService.dashboard$.pipe(takeUntilDestroyed()).subscribe({
       next: (data) => {
         this.summary.set(data?.summary || []);

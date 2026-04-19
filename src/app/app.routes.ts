@@ -9,6 +9,7 @@ import { FacultadesComponent } from './pages/portal/facultades/facultades.compon
 import { AulasComponent } from './pages/portal/aulas/aulas.component';
 import { authGuard } from './guards/auth.guard';
 import { noAuthGuard } from './guards/no-auth.guard';
+import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -25,7 +26,7 @@ export const routes: Routes = [
     title: 'Soporte UAC',
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'usuarios', component: UsuariosComponent, title: 'Soporte UAC - Usuarios'},
+      { path: 'usuarios', canActivate: [adminGuard], component: UsuariosComponent, title: 'Soporte UAC - Usuarios'},
       { path: 'dashboard', component: DashboardComponent, title: 'Soporte UAC - Dashboard'},
       { path: 'reportes', component: ReportesComponent, title: 'Soporte UAC - Reportes'},
       { path: 'pendientes', component: PendientesComponent, title: 'Soporte UAC - Pendientes'},

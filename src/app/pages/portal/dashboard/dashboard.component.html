@@ -183,17 +183,19 @@
       </div>
     }
   </div>
-  <!-- Export -->
-  <div class="flex flex-col gap-2">
-    <div class="font-semibold text-2xl">Exportar</div>
-    <div class="bg-white rounded-3xl h-fit p-5 flex justify-between items-center">
-      <p class="text-neutral-600">Descarga un archivo Excel con los reportes registrados por mes.</p>
-      <button type="button" (click)="isExportModalOpen.set(true)" class="bg-green-600 hover:bg-green-600/90 text-white px-6 py-2 font-semibold rounded-lg">
-        <fa-icon [icon]="Excel"></fa-icon> Exportar
-      </button>
+  @if (isAdmin()) {
+    <!-- Export -->
+    <div class="flex flex-col gap-2">
+      <div class="font-semibold text-2xl">Exportar</div>
+      <div class="bg-white rounded-3xl h-fit p-5 flex justify-between items-center">
+        <p class="text-neutral-600">Descarga un archivo Excel con los reportes registrados por mes.</p>
+        <button type="button" (click)="isExportModalOpen.set(true)" class="bg-green-600 hover:bg-green-600/90 text-white px-6 py-2 font-semibold rounded-lg">
+          <fa-icon [icon]="Excel"></fa-icon> Exportar
+        </button>
+      </div>
     </div>
-  </div>
-  @if (isExportModalOpen()) {
-    <app-export-reportes (close)="isExportModalOpen.set(false)"></app-export-reportes>
+    @if (isExportModalOpen()) {
+      <app-export-reportes (close)="isExportModalOpen.set(false)"></app-export-reportes>
+    }
   }
 </div>

@@ -201,8 +201,6 @@ export class ReportesModalComponent {
     }
 
     const reporte = this.form.value as Reporte;
-    console.log(reporte);
-    
 
     if (reporte._id) {
       this.reportesService.editReporte(reporte);
