@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class DashboardService {
-  private backendUrl = Environments.apiUrl;
+  private apiUrl = Environments.apiUrl;
   private http = inject(HttpClient);
 
   private dashboardSubject = new BehaviorSubject<DashboardData | null>(null);
@@ -19,7 +19,7 @@ export class DashboardService {
   }
 
   getDataForDashboard() {
-    this.http.get<DashboardData>(this.backendUrl + '/dashboard').subscribe({
+    this.http.get<DashboardData>(this.apiUrl + '/dashboard').subscribe({
       next: (data) => this.dashboardSubject.next(data),
     });
   }

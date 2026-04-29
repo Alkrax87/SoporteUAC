@@ -1,50 +1,54 @@
-<div class="w-full flex flex-col gap-5 p-10">
+<div class="w-full flex flex-col gap-5 p-5 md:p-10 duration-500">
   <!-- Breadcrumb -->
   <app-breadcrumb [path]="'Usuarios'"></app-breadcrumb>
   <!-- Top -->
   <div class="flex gap-5">
     <!-- Bage -->
     <div class="bg-light rounded-xl w-full px-5 py-4">
-      <div class="flex justify-between">
+      <div class="flex md:flex-row flex-col justify-between gap-2">
         <div>
           <h1 class="font-bold text-2xl">Usuarios</h1>
           <p class="text-neutral-500 text-sm">Usuarios activos en el sistema.</p>
         </div>
         <div class="flex items-center gap-2">
-          <button (click)="onAdd()" type="button" class="bg-green-600 hover:bg-green-600/90 text-white px-6 py-2 font-semibold rounded-lg">
+          <button (click)="onAdd()" type="button" class="flex justify-center w-full gap-2 bg-green-600 hover:bg-green-600/90 text-white px-6 py-2 font-semibold rounded-lg">
             <fa-icon [icon]="Add"></fa-icon> Nuevo
           </button>
         </div>
       </div>
     </div>
     <!-- User -->
-    <app-user-logout></app-user-logout>
+    <div class="md:block hidden">
+      <app-user-logout></app-user-logout>
+    </div>
   </div>
   <!-- Counter -->
   <div class="text-neutral-500 text-sm -mb-3">
     Mostrando {{ users().length  }} usuarios
   </div>
   <!-- Cards -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
+  <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 md:gap-5 gap-3 duration-500">
     @for (user of users(); track $index) {
-      <div class="bg-light rounded-xl p-5 flex gap-2 items-center">
-        <div>
-          <div class="bg-[#F1F1F1] flex items-center justify-center text-xl w-12 h-12 rounded-full">
-            @if (user.isAdmin) {
-              <fa-icon [icon]="Admin"></fa-icon>
-            } @else {
-              <fa-icon [icon]="User"></fa-icon>
-            }
+      <div class="bg-light rounded-xl p-5 flex sm:flex-row flex-col gap-2 items-center">
+        <div class="flex gap-2 items-center w-full truncate">
+          <div>
+            <div class="bg-[#F1F1F1] flex items-center justify-center text-xl w-12 h-12 rounded-full">
+              @if (user.isAdmin) {
+                <fa-icon [icon]="Admin"></fa-icon>
+              } @else {
+                <fa-icon [icon]="User"></fa-icon>
+              }
+            </div>
+          </div>
+          <div class="w-full truncate">
+            <p class="font-semibold">{{ user.name + ' ' + user.lastname}}</p>
+            <p class="text-neutral-600 -mt-1">{{user.username }}</p>
           </div>
         </div>
-        <div class="w-full truncate">
-          <p class="font-semibold">{{ user.name + ' ' + user.lastname}}</p>
-          <p class="text-neutral-600 -mt-1">{{user.username }}</p>
-        </div>
-        <div class="flex gap-1">
-          <button type="button" (click)="onResetPassword(user)" class="bg-indigo-800 hover:bg-indigo-800/90 text-white w-fit px-2 py-1.5 rounded-full"><fa-icon [icon]="Key"></fa-icon></button>
-          <button type="button" (click)="onEdit(user)" class="bg-amber-500 hover:bg-amber-500/90 text-white w-fit px-2 py-1.5 rounded-full"><fa-icon [icon]="Edit"></fa-icon></button>
-          <button type="button" (click)="onDelete(user)" class="bg-red-600 hover:bg-red-600/90 text-white w-fit px-2 py-1.5 rounded-full"><fa-icon [icon]="Delete"></fa-icon></button>
+        <div class="flex justify-between sm:justify-normal w-full sm:w-fit gap-2 sm:gap-1 duration-500">
+          <button type="button" (click)="onResetPassword(user)" class="bg-indigo-800 hover:bg-indigo-800/90 text-white w-full sm:w-fit px-2 py-1.5 rounded-full"><fa-icon [icon]="Key"></fa-icon></button>
+          <button type="button" (click)="onEdit(user)" class="bg-amber-500 hover:bg-amber-500/90 text-white w-full sm:w-fit px-2 py-1.5 rounded-full"><fa-icon [icon]="Edit"></fa-icon></button>
+          <button type="button" (click)="onDelete(user)" class="bg-red-600 hover:bg-red-600/90 text-white w-full sm:w-fit px-2 py-1.5 rounded-full"><fa-icon [icon]="Delete"></fa-icon></button>
         </div>
       </div>
     }

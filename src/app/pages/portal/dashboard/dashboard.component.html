@@ -1,16 +1,16 @@
-<div class="w-full flex flex-col gap-5 p-10">
+<div class="w-full flex flex-col gap-5 p-5 md:p-10 duration-500">
   <!-- Breadcrumb -->
   <app-breadcrumb [path]="'Dashboard'"></app-breadcrumb>
   <!-- Top -->
   <div class="flex gap-5">
     <!-- Bage -->
     <div class="bg-light rounded-xl w-full px-5 py-4">
-      <div class="flex justify-between">
+      <div class="flex sm:flex-row flex-col justify-between">
         <div>
           <h1 class="font-bold text-2xl">Dashboard</h1>
           <p class="text-neutral-500 text-sm">Aquí tienes información general del sistema.</p>
         </div>
-        <div class="text-neutral-700 flex items-center">
+        <div class="text-neutral-700 sm:flex hidden items-center">
           <span class="font-semibold text-sm">{{ today | date: 'dd MMMM, yyyy' }}</span>
           <div class="bg-light rounded-lg p-2">
             <fa-icon [icon]="Calendar"></fa-icon>
@@ -19,14 +19,16 @@
       </div>
     </div>
     <!-- User -->
-    <app-user-logout></app-user-logout>
+    <div class="md:block hidden">
+      <app-user-logout></app-user-logout>
+    </div>
   </div>
   <!-- Overview -->
   <div class="flex flex-col gap-2">
     <h3 class="font-semibold text-2xl">Actividad</h3>
     <!-- Cards -->
     @if (summary().length > 0) {
-      <div class="grid grid-cols-4 gap-5 w-full">
+      <div class="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 sm:gap-5 gap-3 duration-500 w-full">
         <!-- Today -->
         <div class="bg-gradient-to-r from-[#4EC2FA] to-[#87d7ff] text-slate-50 p-5 rounded-3xl shadow-sm">
           <div class="bg-white text-[#4EC2FA] px-2 py-2 text-2xl w-fit rounded-2xl mb-3">
@@ -83,21 +85,21 @@
     }
   </div>
   <!-- Reports -->
-  <div class="flex justify-between">
+  <div class="flex sm:flex-row flex-col gap-4 justify-between">
     <!-- 1 -->
     <div class="font-semibold text-2xl">Reportes</div>
     <!-- 2 -->
     <div class="bg-white py-1 px-1 rounded-full flex">
-      <button type="button" class="w-20 font-semibold text-sm py-1 duration-100" (click)="setActiveTab('weekly')" [ngClass]="{ 'bg-main text-white rounded-full': weekly, 'text-neutral-500': !weekly }">Semanal</button>
-      <button type="button" class="w-20 font-semibold text-sm py-1 duration-100" (click)="setActiveTab('monthly')" [ngClass]="{ 'bg-main text-white rounded-full': monthly, 'text-neutral-500': !monthly }">Mensual</button>
-      <button type="button" class="w-20 font-semibold text-sm py-1 duration-100" (click)="setActiveTab('annual')" [ngClass]="{ 'bg-main text-white rounded-full': annual, 'text-neutral-500': !annual }">Anual</button>
+      <button type="button" class="sm:w-20 min-w-20 w-full font-semibold text-sm py-1 duration-100" (click)="setActiveTab('weekly')" [ngClass]="{ 'bg-main text-white rounded-full': weekly, 'text-neutral-500': !weekly }">Semanal</button>
+      <button type="button" class="sm:w-20 min-w-20 w-full font-semibold text-sm py-1 duration-100" (click)="setActiveTab('monthly')" [ngClass]="{ 'bg-main text-white rounded-full': monthly, 'text-neutral-500': !monthly }">Mensual</button>
+      <button type="button" class="sm:w-20 min-w-20 w-full font-semibold text-sm py-1 duration-100" (click)="setActiveTab('annual')" [ngClass]="{ 'bg-main text-white rounded-full': annual, 'text-neutral-500': !annual }">Anual</button>
     </div>
   </div>
   <!-- Charts -->
-  <div class="grid grid-cols-5 gap-5">
+  <div class="grid grid-cols-5 sm:gap-5 gap-3 duration-500">
     @if (weekly) {
       <!-- 1 -->
-      <div class="col-span-3">
+      <div class="xl:col-span-3 col-span-5">
         <div class="bg-white rounded-3xl h-fit p-5">
           <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="Week"></fa-icon> Esta Semana</h3>
           @if (chartByTimeWeekly) {
@@ -106,7 +108,7 @@
         </div>
       </div>
       <!-- 2 -->
-      <div class="col-span-2">
+      <div class="xl:col-span-2 col-span-5">
         <div class="bg-white rounded-3xl h-fit p-5">
           <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="School"></fa-icon> Facultades</h3>
           @if (chartByFacultadWeekly) {
@@ -126,7 +128,7 @@
     }
     @if (monthly) {
       <!-- 1 -->
-      <div class="col-span-3">
+      <div class="xl:col-span-3 col-span-5">
         <div class="bg-white rounded-3xl h-fit p-5">
           <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="Week"></fa-icon> Este Mes</h3>
           @if (chartByTimeMonthly) {
@@ -135,7 +137,7 @@
         </div>
       </div>
       <!-- 2 -->
-      <div class="col-span-2">
+      <div class="xl:col-span-2 col-span-5">
         <div class="bg-white rounded-3xl h-fit p-5">
           <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="School"></fa-icon> Facultades</h3>
           @if (chartByFacultadMonthly) {
@@ -155,7 +157,7 @@
     }
     @if (annual) {
       <!-- 1 -->
-      <div class="col-span-3">
+      <div class="xl:col-span-3 col-span-5">
         <div class="bg-white rounded-3xl h-fit p-5">
           <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="Week"></fa-icon> Este Año</h3>
           @if (chartByTimeAnnual) {
@@ -164,7 +166,7 @@
         </div>
       </div>
       <!-- 2 -->
-      <div class="col-span-2">
+      <div class="xl:col-span-2 col-span-5">
         <div class="bg-white rounded-3xl h-fit p-5">
           <h3 class="font-semibold text-xl mb-2"><fa-icon [icon]="School"></fa-icon> Facultades</h3>
           @if (chartByFacultadAnnual) {
@@ -187,9 +189,9 @@
     <!-- Export -->
     <div class="flex flex-col gap-2">
       <div class="font-semibold text-2xl">Exportar</div>
-      <div class="bg-white rounded-3xl h-fit p-5 flex justify-between items-center">
-        <p class="text-neutral-600">Descarga un archivo Excel con los reportes registrados por mes.</p>
-        <button type="button" (click)="isExportModalOpen.set(true)" class="bg-green-600 hover:bg-green-600/90 text-white px-6 py-2 font-semibold rounded-lg">
+      <div class="bg-white rounded-3xl gap-4 h-fit p-5 flex md:flex-row flex-col justify-between items-center">
+        <p class="text-neutral-600">Descargar un archivo Excel con los reportes registrados por mes.</p>
+        <button type="button" (click)="isExportModalOpen.set(true)" class="bg-green-600 hover:bg-green-600/90 text-white md:w-fit w-full justify-center flex px-6 py-2 font-semibold rounded-lg">
           <fa-icon [icon]="Excel"></fa-icon> Exportar
         </button>
       </div>

@@ -46,7 +46,7 @@ import { FacultadesService } from '../../services/facultades.service';
             <!-- Offices -->
             <div formArrayName="offices">
               <label class="font-semibold">
-                Oficinas
+                Oficinas / Aulas
                 <button (click)="addOffice()" type="button" class="bg-green-700 hover:bg-green-700/90 text-white rounded-full px-2 py-1 text-sm duration-300">
                   <fa-icon [icon]="Add"></fa-icon>
                 </button>

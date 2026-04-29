@@ -8,8 +8,8 @@ import { Facultad } from '../../interfaces/facultad';
   selector: 'app-table',
   imports: [FontAwesomeModule, NgClass, DatePipe],
   template: `
-    <!-- Seach and Selector -->
-    <div class="flex justify-between">
+    <!-- Seach and Items -->
+    <div class="flex md:flex-row flex-col gap-4 justify-between items-end">
       <!-- Search -->
       <div class="relative w-full md:w-1/2 lg:w-1/3">
         <fa-icon [icon]="Search" class="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400"></fa-icon>
@@ -198,20 +198,18 @@ import { Facultad } from '../../interfaces/facultad';
       </table>
     </div>
 
-    <!-- Paginate -->
-    <div class="flex justify-between gap-2">
+    <!-- Total and Paginate -->
+    <div class="flex md:flex-row flex-col justify-between items-center gap-2">
+      <!-- Total -->
+      <div class="text-neutral-400 text-sm">Mostrando {{ startRecord + 1 }} a {{ endRecord }} de {{ filteredData.length }} registros</div>
       <!-- Paginate -->
-      <div class="text-neutral-400 text-sm">
-        Mostrando {{ startRecord + 1 }} a {{ endRecord }} de {{ filteredData.length }} registros
-      </div>
-      <!-- Paginate -->
-      <div class="flex gap-2">
+      <div class="flex flex-wrap justify-center gap-2">
         <!-- Previous -->
          <button (click)="prevPage()" [disabled]="currentPage === 1" [ngClass]="{'bg-neutral-200 hover:bg-neutral-200': currentPage === 1}" class="bg-main hover:bg-main-hover w-8 h-8 text-white rounded-full font-semibold text-sm">
           <fa-icon class="text-sm" [icon]="Previous"></fa-icon>
         </button>
         <!-- Pages -->
-        <div class="flex gap-0.5">
+        <div class="flex flex-wrap justify-center gap-0.5">
           @for (page of [].constructor(totalPages); track $index) {
             <button (click)="goToPage($index + 1)" [ngClass]="{'bg-main text-white': currentPage === ($index + 1)}" class="border w-8 h-8 rounded-full outline-none hover:bg-main hover:text-white duration-300">
               {{ $index + 1 }}

@@ -1,24 +1,28 @@
-<div class="w-full flex flex-col gap-5 p-10">
+<div class="w-full flex flex-col gap-5 p-5 md:p-10 duration-500">
   <!-- Breadcrumb -->
   <app-breadcrumb [path]="'Facultades'"></app-breadcrumb>
   <!-- Top -->
   <div class="flex gap-5">
     <!-- Bage -->
     <div class="bg-light rounded-xl w-full px-5 py-4">
-      <div class="flex justify-between">
+      <div class="flex md:flex-row flex-col justify-between gap-2">
         <div>
           <h1 class="font-bold text-2xl">Facultades y Administrativos</h1>
           <p class="text-neutral-500 text-sm">Registro de oficinas oficinas por facultad o edificios administraivos en el sistema.</p>
         </div>
-        <div class="flex items-center gap-2">
-          <button (click)="onAdd()" type="button" class="bg-green-600 hover:bg-green-600/90 text-white px-6 py-2 font-semibold rounded-lg">
-            <fa-icon [icon]="Add"></fa-icon> Nuevo
-          </button>
-        </div>
+        @if (isAdmin()) {
+          <div class="flex items-center gap-2">
+            <button (click)="onAdd()" type="button" class="flex justify-center w-full gap-2 bg-green-600 hover:bg-green-600/90 text-white px-6 py-2 font-semibold rounded-lg">
+              <fa-icon [icon]="Add"></fa-icon> Nuevo
+            </button>
+          </div>
+        }
       </div>
     </div>
     <!-- User -->
-    <app-user-logout></app-user-logout>
+    <div class="md:block hidden">
+      <app-user-logout></app-user-logout>
+    </div>
   </div>
   <!-- Counter -->
   <div class="text-neutral-500 text-sm -mb-3">
