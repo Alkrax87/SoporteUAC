@@ -1,6 +1,6 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Facultad } from '../../interfaces/facultad';
-import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBuilding, faFloppyDisk, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FacultadesService } from '../../services/facultades.service';
@@ -53,7 +53,7 @@ import { FacultadesService } from '../../services/facultades.service';
               </label>
               @if (offices.controls.length > 0) {
                 <div class="overflow-y-auto max-h-96 space-y-2 mt-2">
-                  @for (office of offices.controls; track $index) {
+                  @for (office of offices.controls; track office) {
                     <div class="flex gap-2">
                       <div class="w-full">
                         <label [for]="'office' + $index" class="relative">
