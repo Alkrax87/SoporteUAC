@@ -22,17 +22,30 @@ import { Excel } from '../../interfaces/excel';
           </div>
           <hr class="-mx-5 my-4">
           <div class="flex flex-col gap-4">
-            <p class="text-neutral-500">Selecciona el mes que deseas exportar</p>
-            <!-- Month selector -->
-            <div class="w-full">
-              <label for="type" class="relative">
-                <select id="type" [(ngModel)]="selectedMonth" (ngModelChange)="getExelData()" placeholder="" class="bg-white text-neutral-700 border focus:border-main focus:text-main h-12 cursor-pointer px-5 py-2 peer w-full rounded-full shadow-sm duration-100 outline-none">
-                  @for (mes of meses; track $index) {
-                    <option [value]="mes.value">{{ mes.label }}</option>
-                  }
-                </select>
-                <span class="bg-white text-neutral-400 peer-focus:text-main cursor-text flex items-center -translate-y-6 absolute inset-y-0 start-3 px-2 text-xs font-semibold transition-transform peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-6">Tipo</span>
-              </label>
+            <p class="text-neutral-500">Selecciona el mes y año que deseas exportar</p>
+            <div class="grid grid-cols-2 gap-5">
+              <!-- Month selector -->
+              <div class="w-full">
+                <label for="type" class="relative">
+                  <select id="type" [(ngModel)]="selectedMonth" (ngModelChange)="getExelData()" placeholder="" class="bg-white text-neutral-700 border focus:border-main focus:text-main h-12 cursor-pointer px-5 py-2 peer w-full rounded-full shadow-sm duration-100 outline-none">
+                    @for (mes of meses; track $index) {
+                      <option [value]="mes.value">{{ mes.label }}</option>
+                    }
+                  </select>
+                  <span class="bg-white text-neutral-400 peer-focus:text-main cursor-text flex items-center -translate-y-6 absolute inset-y-0 start-3 px-2 text-xs font-semibold transition-transform peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-6">Mes</span>
+                </label>
+              </div>
+              <!-- Year selector -->
+              <div class="w-full">
+                <label for="type" class="relative">
+                  <select id="type" [(ngModel)]="selectedYear" (ngModelChange)="getExelData()" placeholder="" class="bg-white text-neutral-700 border focus:border-main focus:text-main h-12 cursor-pointer px-5 py-2 peer w-full rounded-full shadow-sm duration-100 outline-none">
+                    @for (year of years; track $index) {
+                      <option [value]="year">{{ year }}</option>
+                    }
+                  </select>
+                  <span class="bg-white text-neutral-400 peer-focus:text-main cursor-text flex items-center -translate-y-6 absolute inset-y-0 start-3 px-2 text-xs font-semibold transition-transform peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-6">Año</span>
+                </label>
+              </div>
             </div>
             @if (errorMessage()) {
               <p class="text-red-600 text-center text-sm -mt-3">{{ errorMessage() }}</p>
@@ -76,6 +89,7 @@ export class ExportReportesComponent {
     { value: 11, label: 'Noviembre' },
     { value: 12, label: 'Diciembre' }
   ];
+  years = [2026, 2027, 2028, 2029, 2030]
   exelData = signal<Excel | null>(null);
   isDownloadDisable = signal(true);
   errorMessage = signal('');
@@ -90,7 +104,7 @@ export class ExportReportesComponent {
   }
 
   getExelData() {
-    this.exelService.getExcelData(this.selectedMonth);
+    this.exelService.getExcelData(this.selectedYear, this.selectedMonth);
     this.exelService.excel$.pipe(takeUntilDestroyed(this.destroy)).subscribe({
       next: (data) => {
         this.exelData.set(data);

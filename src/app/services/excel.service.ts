@@ -14,8 +14,8 @@ export class ExcelService {
   private excelSubject = new BehaviorSubject<Excel | null>(null);
   excel$ = this.excelSubject.asObservable();
 
-  getExcelData(month: number) {
-    this.http.get<Excel>(`${this.apiUrl}/dashboard/excel/${month}`).subscribe({
+  getExcelData(year: number, month: number) {
+    this.http.get<Excel>(`${this.apiUrl}/dashboard/excel/${year}/${month}`).subscribe({
       next: (data) => this.excelSubject.next(data),
     });
   }
