@@ -200,7 +200,8 @@ export class ReportesModalComponent {
       return;
     }
 
-    const reporte = this.form.value as Reporte;
+    let reporte = this.form.value as Reporte;
+    reporte.date = new Date(reporte.date!);
 
     if (reporte._id) {
       this.reportesService.editReporte(reporte);
