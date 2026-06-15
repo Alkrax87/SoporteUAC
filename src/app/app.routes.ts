@@ -17,7 +17,7 @@ export const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     canActivate: [noAuthGuard],
-    title: 'Login',
+    title: 'Soporte UAC - Iniciar Sesión',
   },
   {
     path: 'portal',
